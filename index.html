@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NIST University</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B3D91;
+    --teal:#123C69;
+    --gold:#4A90D9;
+    --paper:#FFFFFF;
+    --paper-2:#EAF1FB;
+    --slate:#33475B;
+    --line:#CBD9EC;
+    --white:#FFFFFF;
+    --radius:6px;
+    --maxw:1120px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    color:var(--slate);
+    background:var(--paper);
+    line-height:1.6;
+  }
+  img{max-width:100%;display:block;}
+  h1,h2,h3,h4{
+    font-family:'Fraunces',Georgia,serif;
+    color:var(--ink);
+    font-weight:600;
+    line-height:1.15;
+  }
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+  section{padding:88px 0;}
+  .eyebrow{display:none;} /* intentionally unused - avoiding generic eyebrow pattern */
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(247,245,240,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:var(--maxw);margin:0 auto;padding:14px 24px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .brand{display:flex;align-items:center;gap:12px;}
+  .brand svg{width:42px;height:42px;flex-shrink:0;}
+  .brand-text .name{
+    font-family:'Fraunces',serif;font-size:1.15rem;font-weight:700;color:var(--ink);
+    line-height:1.1;
+  }
+  .brand-text .tagline{font-size:0.78rem;color:var(--teal);font-style:italic;}
+  nav ul{display:flex;gap:2px;}
+  nav a{
+    display:block;padding:10px 16px;border-radius:var(--radius);
+    font-size:0.95rem;font-weight:500;color:var(--ink);
+    transition:background .15s ease;
+  }
+  nav a:hover,nav a:focus-visible{background:var(--paper-2);}
+  #nav-toggle{display:none;}
+  .burger{
+    display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px;
+  }
+  .burger span{width:24px;height:2px;background:var(--ink);display:block;}
+
+  @media (max-width:820px){
+    nav{
+      position:absolute;top:100%;left:0;right:0;background:var(--paper);
+      border-bottom:1px solid var(--line);
+      max-height:0;overflow:hidden;transition:max-height .25s ease;
+    }
+    nav ul{flex-direction:column;padding:8px 24px 16px;}
+    #nav-toggle:checked ~ nav{max-height:400px;}
+    .burger{display:flex;}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:100px 0 90px;
+    background:
+      linear-gradient(180deg, var(--paper) 0%, var(--paper) 100%);
+    position:relative;
+    overflow:hidden;
+  }
+  .hero .wrap{
+    display:grid;grid-template-columns:1.1fr 0.9fr;gap:56px;align-items:center;
+  }
+  .hero h1{font-size:clamp(2.1rem,4.2vw,3.4rem);max-width:14ch;}
+  .hero p.lede{
+    margin-top:20px;font-size:1.08rem;color:var(--slate);max-width:46ch;
+  }
+  .hero .cta-row{margin-top:32px;display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    display:inline-block;padding:13px 26px;border-radius:var(--radius);
+    font-weight:600;font-size:0.95rem;border:1.5px solid transparent;cursor:pointer;
+    transition:transform .12s ease, background .15s ease, color .15s ease;
+  }
+  .btn-primary{background:var(--ink);color:var(--white);}
+  .btn-primary:hover{background:var(--teal);}
+  .btn-ghost{border-color:var(--ink);color:var(--ink);background:transparent;}
+  .btn-ghost:hover{background:var(--ink);color:var(--white);}
+  .btn-gold{background:var(--gold);color:var(--ink);}
+  .btn-gold:hover{transform:translateY(-1px);}
+
+  .hero-art{position:relative;}
+  .hero-art svg{width:100%;height:auto;}
+
+  .stat-strip{
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    background:var(--paper-2);
+  }
+  .stat-strip .wrap{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding:28px 24px;
+  }
+  .stat-strip .stat{text-align:center;}
+  .stat-strip .num{font-family:'Fraunces',serif;font-size:1.9rem;color:var(--ink);font-weight:700;}
+  .stat-strip .label{font-size:0.85rem;color:var(--teal);margin-top:2px;}
+  @media (max-width:700px){.stat-strip .wrap{grid-template-columns:repeat(2,1fr);}}
+
+  /* ---------- Section headings ---------- */
+  .section-head{max-width:60ch;margin-bottom:44px;}
+  .section-head h2{font-size:clamp(1.7rem,3vw,2.3rem);}
+  .section-head p{margin-top:12px;color:var(--slate);font-size:1.02rem;}
+
+  /* ---------- About ---------- */
+  #about{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .about-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:56px;align-items:start;}
+  .about-copy p{margin-bottom:16px;max-width:56ch;}
+  .mv-cards{display:flex;flex-direction:column;gap:18px;}
+  .mv-card{
+    background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px 26px;border-left:3px solid var(--gold);
+  }
+  .mv-card h3{font-size:1.15rem;margin-bottom:8px;}
+  .mv-card p{font-size:0.96rem;}
+  @media (max-width:820px){.about-grid{grid-template-columns:1fr;}}
+
+  /* ---------- Courses ---------- */
+  .course-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px;
+  }
+  .course-card{
+    background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+    padding:28px 24px;transition:border-color .15s ease, transform .15s ease;
+  }
+  .course-card:hover{border-color:var(--gold);transform:translateY(-3px);}
+  .course-card .tag{
+    font-size:0.75rem;font-weight:700;color:var(--teal);
+    background:#E4EEE8;display:inline-block;padding:3px 10px;border-radius:20px;
+    margin-bottom:14px;
+  }
+  .course-card h3{font-size:1.2rem;margin-bottom:8px;}
+  .course-card p{font-size:0.92rem;margin-bottom:14px;}
+  .course-meta{display:flex;justify-content:space-between;font-size:0.82rem;color:var(--teal);
+    border-top:1px dashed var(--line);padding-top:12px;}
+
+  /* ---------- Facilities ---------- */
+  #facilities{background:var(--teal);color:#EAF1EE;}
+  #facilities .section-head h2{color:#fff;}
+  #facilities .section-head p{color:#C9DAD3;}
+  .facility-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;
+    background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.14);border-radius:var(--radius);overflow:hidden;
+  }
+  .facility-item{
+    background:var(--teal);padding:30px 22px;
+  }
+  .facility-item svg{width:30px;height:30px;margin-bottom:14px;stroke:var(--gold);}
+  .facility-item h3{color:#fff;font-size:1.05rem;margin-bottom:6px;}
+  .facility-item p{font-size:0.86rem;color:#C9DAD3;}
+
+  /* ---------- Faculty ---------- */
+  .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);}
+  table{width:100%;border-collapse:collapse;min-width:560px;background:var(--white);}
+  thead th{
+    text-align:left;background:var(--ink);color:#fff;padding:14px 18px;font-size:0.88rem;
+    font-weight:600;
+  }
+  tbody td{padding:14px 18px;border-top:1px solid var(--line);font-size:0.95rem;}
+  tbody tr:nth-child(even){background:var(--paper-2);}
+
+  /* ---------- Admission form ---------- */
+  #admission{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  form{max-width:760px;}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .field{display:flex;flex-direction:column;gap:6px;}
+  .field.full{grid-column:1 / -1;}
+  label{font-size:0.88rem;font-weight:600;color:var(--ink);}
+  input[type="text"],input[type="email"],input[type="tel"],input[type="date"],select,textarea,input[type="file"]{
+    padding:11px 13px;border:1px solid var(--line);border-radius:var(--radius);
+    font-family:inherit;font-size:0.95rem;background:var(--paper);color:var(--slate);
+  }
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--gold);outline-offset:1px;}
+  textarea{resize:vertical;min-height:80px;}
+  fieldset{border:1px solid var(--line);border-radius:var(--radius);padding:12px 16px;}
+  legend{font-size:0.88rem;font-weight:600;color:var(--ink);padding:0 6px;}
+  .inline-options{display:flex;gap:18px;flex-wrap:wrap;margin-top:6px;}
+  .inline-options label{display:flex;align-items:center;gap:6px;font-weight:400;font-size:0.92rem;}
+  .form-actions{grid-column:1/-1;display:flex;gap:14px;margin-top:6px;}
+  .form-note{grid-column:1/-1;font-size:0.85rem;color:var(--teal);display:none;}
+  .form-note.show{display:block;}
+  @media (max-width:700px){.form-grid{grid-template-columns:1fr;}}
+
+  /* ---------- Contact ---------- */
+  .contact-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:44px;align-items:stretch;}
+  .contact-info{display:flex;flex-direction:column;gap:22px;}
+  .contact-info .item{display:flex;gap:14px;}
+  .contact-info svg{width:22px;height:22px;flex-shrink:0;stroke:var(--gold);margin-top:2px;}
+  .contact-info h4{font-size:0.95rem;color:var(--ink);margin-bottom:2px;}
+  .contact-info p{font-size:0.93rem;}
+  .map-frame{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;min-height:320px;}
+  .map-frame iframe{width:100%;height:100%;min-height:320px;border:0;display:block;}
+  @media (max-width:820px){.contact-grid{grid-template-columns:1fr;}}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--ink);color:#CBD3E0;padding:36px 0;}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:0.86rem;}
+  footer a{color:#EAD9A9;}
+
+  :focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <a class="brand" href="#home">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="24" r="23" stroke="#1B2A4A" stroke-width="2"/>
+        <path d="M24 10L40 18L24 26L8 18L24 10Z" fill="#0F3D3E"/>
+        <path d="M14 21V30C14 30 18 34 24 34C30 34 34 30 34 30V21" stroke="#C99A3E" stroke-width="2" fill="none"/>
+      </svg>
+      <span class="brand-text">
+        <span class="name">NIST University</span><br>
+        <span class="tagline">Engineering ideas into impact</span>
+      </span>
+    </a>
+    <input type="checkbox" id="nav-toggle">
+    <label class="burger" for="nav-toggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </label>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#courses">Courses</a></li>
+        <li><a href="#faculty">Faculty</a></li>
+        <li><a href="#facilities">Facilities</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ================= HOME ================= -->
+  <section class="hero" id="home">
+    <div class="wrap">
+      <div class="hero-copy">
+        <h1>A campus built for people who like taking things apart to see how they work.</h1>
+        <p class="lede">NIST University trains engineers across four programmes, with labs, faculty and a campus built around one idea: understand it deeply, then build it well.</p>
+        <div class="cta-row">
+          <a href="#about" class="btn btn-primary">Learn More</a>
+          <a href="#admission" class="btn btn-ghost">Apply for Admission</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 420 360" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="0" width="420" height="360" fill="none"/>
+          <g stroke="#1B2A4A" stroke-width="1.4" fill="none" opacity="0.85">
+            <rect x="60" y="150" width="300" height="150"/>
+            <line x1="60" y1="190" x2="360" y2="190"/>
+            <line x1="60" y1="230" x2="360" y2="230"/>
+            <line x1="60" y1="270" x2="360" y2="270"/>
+            <line x1="130" y1="150" x2="130" y2="300"/>
+            <line x1="210" y1="150" x2="210" y2="300"/>
+            <line x1="290" y1="150" x2="290" y2="300"/>
+          </g>
+          <path d="M60 150L210 60L360 150" stroke="#0F3D3E" stroke-width="2.5" fill="none"/>
+          <circle cx="210" cy="60" r="6" fill="#C99A3E"/>
+          <g stroke="#C99A3E" stroke-width="1.2">
+            <line x1="150" y1="105" x2="150" y2="150"/>
+            <line x1="270" y1="105" x2="270" y2="150"/>
+          </g>
+          <rect x="95" y="200" width="24" height="24" fill="#EFEBE1" stroke="#1B2A4A"/>
+          <rect x="175" y="200" width="24" height="24" fill="#EFEBE1" stroke="#1B2A4A"/>
+          <rect x="255" y="200" width="24" height="24" fill="#EFEBE1" stroke="#1B2A4A"/>
+          <rect x="305" y="200" width="24" height="24" fill="#EFEBE1" stroke="#1B2A4A"/>
+          <rect x="190" y="250" width="40" height="50" fill="#1B2A4A"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <div class="stat-strip">
+    <div class="wrap">
+      <div class="stat"><div class="num">4</div><div class="label">Degree Programmes</div></div>
+      <div class="stat"><div class="num">45+</div><div class="label">Faculty Members</div></div>
+      <div class="stat"><div class="num">1200+</div><div class="label">Students on Campus</div></div>
+      <div class="stat"><div class="num">30+</div><div class="label">Years of Teaching</div></div>
+    </div>
+  </div>
+
+  <!-- ================= ABOUT ================= -->
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>About the institute</h2>
+      </div>
+      <div class="about-grid">
+        <article class="about-copy">
+          <p>NIST University was founded to do one thing well: teach engineering as a practical craft, not just a set of exams to clear. Our classrooms sit next to our labs, and most courses spend as much time on the workbench as at the whiteboard.</p>
+          <p>Over three decades, the institute has grown from a single diploma programme into four full degree courses, run by faculty who mostly came up through industry before they came up through academia. Class sizes stay small enough that professors know your name by the second week.</p>
+        </article>
+        <div class="mv-cards">
+          <div class="mv-card">
+            <h3>Our Mission</h3>
+            <p>To give every student the technical grounding, the hands-on practice and the confidence to solve real engineering problems from day one of their career.</p>
+          </div>
+          <div class="mv-card">
+            <h3>Our Vision</h3>
+            <p>To be recognised as a college where graduates are known for what they can build, not just what they can recite.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= COURSES ================= -->
+  <section id="courses">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Academic Programmes</h2>
+        <p>Four undergraduate and postgraduate programmes, each with its own labs, projects and industry tie-ups.</p>
+      </div>
+      <div class="course-grid">
+        <div class="course-card">
+          <span class="tag">B.Tech</span>
+          <h3>Computer Science &amp; Engineering</h3>
+          <p>Covers programming, data structures, systems and software engineering, with electives in AI and web technologies.</p>
+          <div class="course-meta"><span>4 Years</span><span>Intake: 120</span></div>
+        </div>
+        <div class="course-card">
+          <span class="tag">B.Tech</span>
+          <h3>Electronics &amp; Communication Engg.</h3>
+          <p>Focuses on circuits, signal processing and communication systems, backed by dedicated hardware labs.</p>
+          <div class="course-meta"><span>4 Years</span><span>Intake: 90</span></div>
+        </div>
+        <div class="course-card">
+          <span class="tag">B.Tech</span>
+          <h3>Electrical &amp; Electronics Engg.</h3>
+          <p>Builds a foundation in power systems, machines and control engineering, with live industrial projects.</p>
+          <div class="course-meta"><span>4 Years</span><span>Intake: 60</span></div>
+        </div>
+        <div class="course-card">
+          <span class="tag">MCA</span>
+          <h3>Master of Computer Applications</h3>
+          <p>A postgraduate programme in software development, databases and applied computing for working professionals and fresh graduates alike.</p>
+          <div class="course-meta"><span>2 Years</span><span>Intake: 60</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FACULTY ================= -->
+  <section id="faculty">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Faculty</h2>
+        <p>A few of the people teaching on campus this year.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Faculty Name</th>
+              <th scope="col">Department</th>
+              <th scope="col">Designation</th>
+              <th scope="col">Experience</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Dr. Raj Kumar</td>
+              <td>CSE</td>
+              <td>Professor</td>
+              <td>15 Years</td>
+            </tr>
+            <tr>
+              <td>Dr. Anita Das</td>
+              <td>ECE</td>
+              <td>Associate Professor</td>
+              <td>10 Years</td>
+            </tr>
+            <tr>
+              <td>Mr. Rahul Singh</td>
+              <td>CSE</td>
+              <td>Assistant Professor</td>
+              <td>5 Years</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FACILITIES ================= -->
+  <section id="facilities">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Campus Facilities</h2>
+        <p>What's on campus, beyond the classroom.</p>
+      </div>
+      <div class="facility-grid">
+        <div class="facility-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="1"/><line x1="8" y1="20" x2="16" y2="20"/><line x1="12" y1="16" x2="12" y2="20"/></svg>
+          <h3>Computer Lab</h3>
+          <p>High-spec workstations, open late for project work and lab assignments.</p>
+        </div>
+        <div class="facility-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h6v16H4z"/><path d="M14 4h6v16h-6z"/></svg>
+          <h3>Library</h3>
+          <p>A reading hall and reference collection covering every department on campus.</p>
+        </div>
+        <div class="facility-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="12" rx="1"/><line x1="7" y1="21" x2="17" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <h3>Smart Classroom</h3>
+          <p>Projector- and audio-equipped rooms used for lectures, seminars and reviews.</p>
+        </div>
+        <div class="facility-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9l9-6 9 6v12"/><path d="M9 21v-6h6v6"/></svg>
+          <h3>Hostel</h3>
+          <p>Separate hostels for men and women, walking distance from the academic block.</p>
+        </div>
+        <div class="facility-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/></svg>
+          <h3>Sports Complex</h3>
+          <p>Grounds and courts for athletics, cricket, basketball and indoor games.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ADMISSION FORM ================= -->
+  <section id="admission">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Admission Enquiry</h2>
+        <p>Fill this in and our admissions office will get back to you. This is a demo form — it does not submit anywhere yet.</p>
+      </div>
+      <form id="admission-form" novalidate>
+        <div class="form-grid">
+          <div class="field">
+            <label for="s-name">Student Name</label>
+            <input type="text" id="s-name" name="studentName" required>
+          </div>
+          <div class="field">
+            <label for="s-email">Email</label>
+            <input type="email" id="s-email" name="email" required>
+          </div>
+          <div class="field">
+            <label for="s-mobile">Mobile Number</label>
+            <input type="tel" id="s-mobile" name="mobile" pattern="[0-9]{10}" placeholder="10-digit number" required>
+          </div>
+          <div class="field">
+            <label for="s-dob">Date of Birth</label>
+            <input type="date" id="s-dob" name="dob" required>
+          </div>
+          <div class="field">
+            <label for="s-gender">Gender</label>
+            <fieldset id="s-gender">
+              <legend>Select one</legend>
+              <div class="inline-options">
+                <label><input type="radio" name="gender" value="female" required> Female</label>
+                <label><input type="radio" name="gender" value="male"> Male</label>
+                <label><input type="radio" name="gender" value="other"> Other</label>
+              </div>
+            </fieldset>
+          </div>
+          <div class="field">
+            <label for="s-course">Course</label>
+            <select id="s-course" name="course" required>
+              <option value="">Select a course</option>
+              <option>B.Tech CSE</option>
+              <option>B.Tech ECE</option>
+              <option>B.Tech EEE</option>
+              <option>MCA</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <label>Hobbies</label>
+            <div class="inline-options">
+              <label><input type="checkbox" name="hobbies" value="reading"> Reading</label>
+              <label><input type="checkbox" name="hobbies" value="sports"> Sports</label>
+              <label><input type="checkbox" name="hobbies" value="coding"> Coding</label>
+              <label><input type="checkbox" name="hobbies" value="music"> Music</label>
+              <label><input type="checkbox" name="hobbies" value="art"> Art</label>
+            </div>
+          </div>
+
+          <div class="field full">
+            <label for="s-address">Address</label>
+            <textarea id="s-address" name="address" required></textarea>
+          </div>
+
+          <div class="field full">
+            <label for="s-photo">Upload Photo</label>
+            <input type="file" id="s-photo" name="photo" accept="image/*">
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-ghost">Reset</button>
+          </div>
+          <p class="form-note" id="form-note">Thanks — your enquiry has been noted. (Demo form, nothing was actually sent.)</p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section id="contact" style="background:var(--paper-2);border-top:1px solid var(--line);">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Contact Us</h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="item">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            <div>
+              <h4>Address</h4>
+              <p>NIST University, Palur Hills, Berhampur, Ganjam, Odisha</p>
+            </div>
+          </div>
+          <div class="item">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2z"/></svg>
+            <div>
+              <h4>Phone</h4>
+              <p>+91 1234567890</p>
+            </div>
+          </div>
+          <div class="item">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg>
+            <div>
+              <h4>Email</h4>
+              <p>nist@gmail.com</p>
+            </div>
+          </div>
+        </div>
+        <div class="map-frame">
+          <iframe
+            src="https://www.google.com/maps?q=Palur+Hills,Berhampur,Ganjam,Odisha&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="College location on Google Maps">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year"></span> NIST University. All rights reserved.</span>
+    <span>Built for an academic assignment — <a href="#home">back to top</a></span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // close mobile nav after clicking a link
+  document.querySelectorAll('nav a').forEach(function(link){
+    link.addEventListener('click', function(){
+      document.getElementById('nav-toggle').checked = false;
+    });
+  });
+
+  // demo submit handler (no backend)
+  var form = document.getElementById('admission-form');
+  var note = document.getElementById('form-note');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    note.classList.add('show');
+    form.reset();
+  });
+</script>
+
+</body>
+</html>
